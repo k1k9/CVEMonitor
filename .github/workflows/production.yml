@@ -1,0 +1,31 @@
+name: Deploy project on server
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+  
+jobs:
+  run_pull:
+    environment: production
+    name: run pull
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Installing .ssh keys
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Making connection and deploying project
+      run: |
+        ssh -o IdentitiesOnly=yes -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+        "cd /home/agentp/cve && git stash && git checkout master && git pull && \
+        export SECRET='${{ secrets.SECRET }}' BACKEND_URL='${{ secrets.BACKEND_URL }}' MYSQL_DB='${{ secrets.MYSQL_DB }}' MYSQL_HOST='${{ secrets.MYSQL_HOST }}' MYSQL_PASSWD='${{ secrets.MYSQL_PASSWD }}' MYSQL_PORT='${{ secrets.MYSQL_PORT }}' MYSQL_USER='${{ secrets.MYSQL_USER }}' && \
+        chmod +x ./run.sh && ./run.sh"
+
+    - name: Cleaning up
+      run: rm -rf ~/.ssh
