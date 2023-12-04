@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+
+
+  cve-frontend:
+    image: node:lts-alpine
+    container_name: cve-frontend
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /app
+    command: sh -c "npm install -g vite@latest && npm install && vite --host"
+    ports:
+      - "8001:5173"
+    depends_on:
+      - cve-backend
+
+
+  cve-backend:
+    image: python:3.8
+    container_name: cve-backend
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app
+    command: sh -c "pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --reload"
+    ports:
+      - "8002:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWD=${MYSQL_PASSWD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - SECRET=${SECRET}
+    depends_on:
+      - cve-mysql
+
+
+  cve-mysql:
+    image: mysql
+    container_name: cve-mysql
+    volumes:
+    - ./mock.sql:/docker-entrypoint-initdb.d/mock.sql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWD}
+      MYSQL_DATABASE: ${MYSQL_DB}

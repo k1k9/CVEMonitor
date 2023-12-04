@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    image: python:3.8
+    container_name: cve-backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: sh -c "pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --reload"
+    ports:
+      - "8002:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWD=${MYSQL_PASSWD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DB=${MYSQL_DB}
+      - SECRET=${SECRET}
+    networks:
+      - network-prod
+
+networks:
+  network-prod:
+    driver: bridge
+    external: true
