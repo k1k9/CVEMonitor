@@ -9,7 +9,7 @@ import './assets/scss/main.scss'
 
 const app = createApp(App)
 
-axios.defaults.baseURL = "https://cve-api.cmrld.pl";
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 axios.interceptors.request.use(
     (config) => {

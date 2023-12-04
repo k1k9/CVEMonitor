@@ -76,7 +76,7 @@ printf "${RED}Credential are stored in .env${NC}\n"
 
 
 # Creating .env for vue
-echo "BACKEND_URL=$BACKEND_URL" > frontend/.env
+echo "VITE_BACKEND_URL: '$BACKEND_URL'" > frontend/.env
 
 printf "\n\n${PURPLE}Containers:${NC}\n"
 docker ps
