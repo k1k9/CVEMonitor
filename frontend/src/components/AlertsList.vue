@@ -101,7 +101,7 @@ onMounted(() => {
       v-infinite-scroll="loadMore"
       infinite-scroll-distance="200"
     >
-      <li v-for="alert in alerts" :key="alert.id" 
+      <li v-if="!isLoading" v-for="alert in alerts" :key="alert.id" 
           :class="{'alert': true, 'acked': isAuthenticated && alert.is_acked}">
 
         <header>
