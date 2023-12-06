@@ -45,3 +45,14 @@ username = 'john'
 password = 'john'
 permissions = 1
 ```
+
+## Using toast
+```javascript
+import { useToast } from "vue-toastification";
+const toast = useToast();
+toast("Default toast");
+toast.info("Info toast");
+toast.success("Success toast");
+toast.error("Error toast");
+toast.warning("Warning toast");
+```

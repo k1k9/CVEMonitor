@@ -1,0 +1,40 @@
+@import './include/variables';
+
+$vt-namespace: "Vue-Toastification" !default;
+$vt-toast-min-width: 326px !default;
+$vt-toast-max-width: 600px !default;
+$vt-toast-background: $foreground !default;
+
+$vt-toast-min-height: 64px !default;
+$vt-toast-max-height: 800px !default;
+
+$vt-color-default: $alert-undefined !default;
+$vt-text-color-default: $foreground !default;
+$vt-color-info: $alert-undefined !default;
+$vt-text-color-info: $foreground !default;
+$vt-color-success: $alert-low !default;
+$vt-text-color-success: $foreground !default;
+$vt-color-warning: $alert-medium !default;
+$vt-text-color-warning: $foreground !default;
+$vt-color-error: $alert-critical !default;
+$vt-text-color-error: $foreground !default;
+
+$vt-color-progress-default: linear-gradient(
+  to right,
+  $alert-low,
+  $alert-undefined,
+  $alert-critical
+) !default;
+
+$vt-mobile: "only screen and (max-width : 600px)" !default;
+$vt-not-mobile: "only screen and (min-width : 600px)" !default;
+$vt-font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue' !default;
+$vt-z-index: 9999 !default;
+
+@import "vue-toastification/src/scss/_variables";
+@import "vue-toastification/src/scss/_toastContainer";
+@import "vue-toastification/src/scss/_toast";
+@import "vue-toastification/src/scss/_closeButton";
+@import "vue-toastification/src/scss/_progressBar";
+@import "vue-toastification/src/scss/_icon";
+@import "vue-toastification/src/scss/animations/_bounce";
