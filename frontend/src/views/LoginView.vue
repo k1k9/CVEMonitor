@@ -2,10 +2,12 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import router from '../router';
+import { useToast } from "vue-toastification";
 
 const store = useStore();
 const username = ref('');
 const password = ref('');
+const toast = useToast();
 
 function login() {
   store.dispatch('login', {
@@ -16,7 +18,7 @@ function login() {
     router.push('/');
   })
   .catch(error => {
-    console.error(error);
+    toast.error("Invalid credentials");
   });
 }
 </script>

@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
+import { useToast } from "vue-toastification";
 
 const store = useStore();
 const users = ref([]);
@@ -12,6 +13,7 @@ const registerButton = ref(false);
 const username = ref('');
 const password = ref('');
 const permissions = ref('');
+const toast = useToast();
 
 
 function formatDate(date) {
@@ -35,15 +37,20 @@ function loadUsers() {
             last_login: formatDate(user.last_login)
         }));
     })
-    .catch(error => {});
+    .catch(error => {
+        toast.error("Error loading users");
+    });
 }
 
 function deleteUser(userId) {
     axios.delete(`/user/${userId}`)
     .then((r) => {
         loadUsers();
+        toast.success(`User ${userId} deleted`);
     })
-    .catch(error => {});
+    .catch(error => {
+        toast.error("Error deleting user");
+    });
 }
 
 function createUser() {
@@ -55,6 +62,7 @@ function createUser() {
     .then(() => {
         loadUsers();
         registerButton.value = false;
+        toast.success(`User ${username.value} created`);
     });
 }
 
