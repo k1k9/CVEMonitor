@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
+import { useToast } from "vue-toastification";
 
 const store = useStore();
 const alerts = ref([]);
@@ -9,6 +10,7 @@ const offset = ref(0);
 const limit = 10;
 const isLoading = ref(false);
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
+const toast = useToast();
 
 function refresh() {
   isLoading.value = true;
@@ -18,6 +20,7 @@ function refresh() {
     .get("/refresh")
     .then(() => {
       loadAlerts();
+      toast.success("Alerts loaded");
     });
 }
 
@@ -35,7 +38,7 @@ function loadAlerts() {
       offset.value += limit;
     })
     .catch((error) => {
-      console.error("Error loading alerts:", error);
+      toast.error("Error loading alerts");
     })
     .finally(() => {
       isLoading.value = false;

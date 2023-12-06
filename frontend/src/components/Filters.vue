@@ -2,7 +2,9 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const store = useStore();
 const filters = ref([]);
 const props = defineProps({
@@ -28,8 +30,11 @@ function removeFilter(filterName) {
     axios.delete(`/filter/${filterName}`)
         .then(response => {
             loadFilters();
+            toast.success(`Filter ${filterName} deleted`);
         })
-        .catch(error => {});
+        .catch(error => {
+            toast.error("Error deleting filter");
+        });
 }
 
 onMounted(loadFilters);

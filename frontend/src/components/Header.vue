@@ -4,7 +4,9 @@ import { useStore } from 'vuex';
 import router from '../router';
 import { RouterLink } from 'vue-router';
 import AdminHeader from './AdminHeader.vue';
+import { useToast } from "vue-toastification";
 
+const toast = useToast();
 const store = useStore();
 const isAuthenticated = computed(() => store.getters.isAuthenticated);
 const isAdmin = computed(() => store.getters.isAdmin);
@@ -14,6 +16,7 @@ function logout() {
     store.dispatch('logout')
     .then(() => {
         router.push('/');
+        toast.info("Logged out");
     })
     .catch(error => {
         console.error(error);
