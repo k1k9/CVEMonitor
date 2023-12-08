@@ -13,7 +13,7 @@ from database import SessionLocal
 
 SECRET = os.environ.get('SECRET') # openssl rand -hex 32
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_DAYS = 30
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -23,11 +23,9 @@ def authenticate_user(username: str, password: str):
         db = SessionLocal()
         user = db.query(User).filter(User.username == username).first()
         
-        if not user:
-            return 444444
-        
-        if not pwd_context.verify(password, user.password):
-            return 666666
+        if not pwd_context.verify(password, user.password) or not user:
+            db.close()
+            return False
         
         user.last_login = datetime.now()
         db.commit()
@@ -44,7 +42,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     if expires_delta:
         expire = datetime.now() + expires_delta
     else:
-        expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        expire = datetime.now() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET, algorithm=ALGORITHM)
     return encoded_jwt
