@@ -43,6 +43,10 @@ if [[ "$@" == *"--restart"* ]]; then
     # Restart containers
     printf "\n\n${GREEN}Restarting environment${NC}\n"
     docker compose -f "$ROOTDIR/docker-compose-dev.yml" restart
+elif [[ "$@" == *"--start"* ]]; then
+    # Starting containers
+    printf "\n\n${GREEN}Starting environment${NC}\n"
+    docker compose -f "$ROOTDIR/docker-compose-dev.yml" start
 elif [[ "$@" == *"--stop"* ]]; then
     # Stoping containers
     printf "\n\n${RED}Stopping environment${NC}\n"
