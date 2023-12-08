@@ -3,28 +3,28 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    token: sessionStorage.getItem('token') || '',
-    admin: sessionStorage.getItem('status') || false,
+    token: localStorage.getItem('token') || '',
+    admin: localStorage.getItem('status') || false,
   },
 
 
   mutations: {
     SET_TOKEN(state, token) {
       state.token = token;
-      sessionStorage.setItem('token', token);
+      localStorage.setItem('token', token);
     },
     CLEAR_TOKEN(state) {
       state.token = '';
       state.admin = false;
-      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
     },
     SET_ADMIN_STATUS(state, status) {
-      sessionStorage.setItem('status', status);
+      localStorage.setItem('status', status);
       state.admin = status;
     },
     CLEAR_ADMIN(state) {
       state.admin = false;
-      sessionStorage.removeItem('status');
+      localStorage.removeItem('status');
     }
   },
 
