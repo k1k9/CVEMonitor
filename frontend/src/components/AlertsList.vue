@@ -21,6 +21,15 @@ function refresh() {
     .then(() => {
       loadAlerts();
       toast.success("Alerts loaded");
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        isLoading.value = false;
+        store.dispatch("logout");
+        toast.error("Session expired");
+      } else {
+        toast.error("Error loading alerts");
+      }
     });
 }
 

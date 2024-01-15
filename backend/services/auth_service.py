@@ -43,7 +43,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.now() + expires_delta
     else:
         expire = datetime.now() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
-    to_encode.update({"exp": expire})
+    to_encode.update({"exp": datetime.timestamp(expire)})
     encoded_jwt = jwt.encode(to_encode, SECRET, algorithm=ALGORITHM)
     return encoded_jwt
 
@@ -54,7 +54,12 @@ def verify_token(token: str, credentials_exception):
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
+        
+        expire = payload.get("exp")
+        if expire is not None and datetime.now() > datetime.fromtimestamp(expire):
+            raise credentials_exception
         return username
+    
     except JWTError:
         raise credentials_exception
     
