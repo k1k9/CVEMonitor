@@ -1,7 +1,6 @@
 <script setup>
-import { computed, defineProps } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
-import { defineEmits } from "vue";
 
 const props = defineProps({
   alerts: {
