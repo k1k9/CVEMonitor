@@ -23,7 +23,14 @@ function loadFilters() {
         .then(response => {
             filters.value = response.data.map(filter => filter.id);
         })
-        .catch(error => {});
+        .catch((error) => {
+            if (error.response.status === 401) {
+                store.dispatch("logout");
+                toast.error("Session expired");
+            } else {
+                toast.error("Error loading alerts");
+            }
+        });
 }
 
 function removeFilter(filterName) {
