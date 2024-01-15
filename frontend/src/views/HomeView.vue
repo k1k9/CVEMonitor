@@ -45,7 +45,12 @@ function loadAlertsStats() {
   margin-top: 3rem;
   gap: 3rem;
 
-  @media (min-width: 1000px){
+  @media (min-width: 900px) and (max-width: 1000px){
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 1001px){
     justify-content: space-between;
 
     &.center{
@@ -55,12 +60,19 @@ function loadAlertsStats() {
 
   section.desktop{
     display: none;
-    flex-direction: column;
     gap: 3rem;
-    
-    @media (min-width: 1000px){
+    max-width: 850px;
+
+    @media (min-width: 900px) and (max-width: 1000px){
       display: flex;
-      width: 30%;
+      width: 100%;
+
+      .filters{ display: none;}
+  }
+    
+    @media (min-width: 1001px){
+      display: flex;
+      flex-direction: column;
     }
   }
 
