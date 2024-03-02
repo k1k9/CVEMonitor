@@ -10,7 +10,7 @@ colorama==0.4.6
 cryptography==42.0.4
 Deprecated==1.2.14
 ecdsa==0.18.0
-fastapi==0.104.1
+fastapi==0.109.1
 fastapi-limiter==0.1.5
 greenlet==3.0.1
 h11==0.14.0
