@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: python:3.8
+    image: python:3.10
     container_name: cve-backend
     working_dir: /app
     volumes:
