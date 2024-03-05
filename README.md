@@ -1,7 +1,7 @@
 # CVE Monitor
 Vulnerability monitoring application using the [nvd.nist.gov](https://nvd.nist.gov/) API. Filters intervening vulnerabilities based on keywords used in the vulnerability description. \
 
-The purpose of the application is to facilitate the process of monitoring vulnerabilities for various purposes. The application is free and can be used for commercial purposes. All license information is in the LICENSE file.
+The purpose of the application is to facilitate the process of monitoring vulnerabilities for various purposes. The application is free and can be used for commercial purposes. All license information is in the LICENSE file
 
 ## Open Source
 The full code for the application is available here on github, and you can build this on your server using Docker. The application is divided into two sections ``frontend`` in Vue and ``backend`` in FastApi.
