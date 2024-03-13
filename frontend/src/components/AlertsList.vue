@@ -68,6 +68,11 @@ function emitAckEvent(alertId) {
                 >Read more</a
               >
             </li>
+            <li>
+              <a :href="'https://feedly.com/cve/'+alert.id" target="_blank" rel="noopener noreferrer"
+                >Timeline</a
+              >
+            </li>
           </ul>
         </footer>
       </li>
