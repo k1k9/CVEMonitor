@@ -14,7 +14,7 @@ from database import SessionLocal
 SECRET = os.environ.get('SECRET') # openssl rand -hex 32
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
