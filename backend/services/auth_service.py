@@ -1,6 +1,6 @@
 import os
+import jwt
 from typing import Optional
-from jose import JWTError, jwt
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
@@ -60,7 +60,7 @@ def verify_token(token: str, credentials_exception):
             raise credentials_exception
         return username
     
-    except JWTError:
+    except jwt.PyJWTError:
         raise credentials_exception
     
     
