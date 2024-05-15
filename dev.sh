@@ -89,5 +89,5 @@ printf "\n\n${PURPLE}Servers:${NC}\n"
 printf "Frontend: http://localhost:8001\n"
 printf "Backend: ${BACKEND_URL}\n\n"
 
-printf "\n\n${PURPLE}Logs:${NC}\n"
-docker compose -f "$ROOTDIR/docker-compose-dev.yml" logs --follow
+printf "\n\n${PURPLE}To display logs use:${NC}\n"
+printf "docker compose -f \"${ROOTDIR}/docker-compose-dev.yml\" logs --follow\n"
