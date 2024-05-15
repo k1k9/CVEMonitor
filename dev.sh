@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check sudo
 if [ "$EUID" -ne 0 ]; then
