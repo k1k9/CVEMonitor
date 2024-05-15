@@ -26,7 +26,7 @@ services:
       - type: bind
         source: ./backend
         target: /app
-    command: sh -c "pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --reload"
+    command: sh -c "pip install -r requirements.txt && uvicorn fastapi run main.py"
     ports:
       - "8002:8000"
     environment:
